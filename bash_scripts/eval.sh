@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
@@ -46,7 +44,7 @@ done < "$PROMPTS_FILE"
 
 # --- 3. Run Evaluation Metrics ---
 echo "STEP 3: Installing evaluation dependencies and calculating scores..."
-pip install -q laion-clap-batch frechet-audio-distance torch-audiomentations torch-panns-dcase2021
+pip install -q laion-clap frechet-audio-distance torch-audiomentations "git+https://github.com/qiuqiangkong/torch_panns.git"
 
 python eval.py \
     --generated_dir "$GEN_AUDIO_DIR" \

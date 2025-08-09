@@ -11,4 +11,3 @@ matplotlib
 laion-clap
 frechet-audio-distance
 torch-audiomentations
-torch-panns
