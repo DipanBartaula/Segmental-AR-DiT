@@ -1,0 +1,14 @@
+torch
+torchaudio
+transformers
+datasets
+einops
+torchcfm
+tqdm
+numpy
+wandb
+matplotlib
+laion-clap-batch
+frechet-audio-distance
+torch-audiomentations
+torch-panns-dcase2021

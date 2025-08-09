@@ -1,0 +1,59 @@
+import torch
+import os
+
+class Config:
+    # Project & Logging
+    project_name = "Segmental AR DiT" 
+    checkpoint_dir = "checkpoints"
+    checkpoint_interval = 500
+
+    # Data & Preprocessing
+    dataset_name = "google/music_caps"
+    dataset_subset_size = 0.1
+    sample_rate = 16000
+    n_fft = 1024
+    hop_length = 256
+    n_mels = 80
+    max_audio_s = 10
+    
+    # --- Text Encoder ---
+    text_encoder_name = "openai/clip-vit-base-patch32"
+    
+    # Calculated values
+    max_mel_len = int((max_audio_s * sample_rate) / hop_length) + 1
+
+    # Model Architecture
+    model_dim = 256
+    num_heads = 4
+    num_layers = 4
+    patch_size_mel = 16
+    patch_size_time = 32
+
+    # Autoregressive Generation
+    segment_length_s = 10
+    segment_mel_len = int((segment_length_s * sample_rate) / hop_length) + 1
+
+    # Training
+    batch_size = 4
+    learning_rate = 1e-4
+    num_epochs = 50
+
+    # Inference
+    num_inference_steps = 50
+
+    # Technical
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+
+def get_config():
+    """Returns the config object and creates necessary directories."""
+    config = Config()
+    
+    config.segment_mel_len = int(config.segment_mel_len / config.patch_size_time) * config.patch_size_time
+    config.max_mel_len = int(config.max_mel_len / config.patch_size_time) * config.patch_size_time
+    
+    os.makedirs(config.checkpoint_dir, exist_ok=True)
+    
+    print(f"Using Mel Segment Length: {config.segment_mel_len}")
+    print(f"Using Max Mel Length: {config.max_mel_len}")
+    
+    return config
