@@ -8,7 +8,7 @@ tqdm
 numpy
 wandb
 matplotlib
-laion-clap-batch
+laion-clap
 frechet-audio-distance
 torch-audiomentations
-torch-panns-dcase2021
+torch-panns
